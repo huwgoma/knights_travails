@@ -22,10 +22,8 @@ class Cell
     @@cells << self 
   end
 
-  def self.find_cell(x, y)
-    @@cells.find { |coords| coords.x == x && coords.y == y }
+  def self.find(x, y)
+    @@cells.find { |cell| cell.x == x && cell.y == y }
   end
-
-  
 end
 

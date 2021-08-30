@@ -3,11 +3,10 @@
 require 'pry'
 require_relative 'board'
 require_relative 'knight'
+require_relative 'graph'
+require_relative 'dijkstra'
 
 board = GameBoard.new
+knight = Knight.new
 
-def knight_moves(start, finish)
-  p Cell.find_cell(start.first, start.last)
-end
-
-knight_moves([0, 0], [1, 2])
+knight.knight_moves([1, 0], [1, 2])
