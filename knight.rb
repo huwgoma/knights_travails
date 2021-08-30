@@ -1,5 +1,5 @@
 class Knight
-  attr_accessor :position
+  attr_accessor :position, :target
 
   def initialize
     @position = Cell.find(1, 0)
@@ -10,7 +10,7 @@ class Knight
     @target = Cell.find(target.first, target.last)
 
     graph = Graph.new(position)
-    djikstra(graph.nodes)
+    number_of_moves = dijkstra(graph.nodes, @target)
     binding.pry
     graph.add_node(position)
   end
