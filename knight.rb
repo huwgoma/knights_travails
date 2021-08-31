@@ -10,9 +10,12 @@ class Knight
     @target = Cell.find(target.first, target.last)
 
     graph = Graph.new(position)
-    number_of_moves = dijkstra(graph.nodes, @target)
+    path = dijkstra(graph.nodes, @target)
+    path = path.map do |node|
+      [node.position.x, node.position.y]
+    end
     binding.pry
-    graph.add_node(position)
+    
   end
 
 end

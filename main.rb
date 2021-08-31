@@ -9,4 +9,4 @@ require_relative 'dijkstra'
 board = GameBoard.new
 knight = Knight.new
 
-knight.knight_moves([1, 0], [1, 2])
+knight.knight_moves([1, 0], [3,3])
