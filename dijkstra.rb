@@ -6,21 +6,20 @@ def dijkstra(graph, target)
   queue << source
 
   until queue.empty?
-    v = queue.shift
-    #binding.pry
-    return trace_path(visited, v) if v.position == target
-    v.neighbours.each do |u| 
+    current = queue.shift
+    return trace_path(visited, current) if current.position == target
+    current.neighbours.each do |u| 
       next if visited.any? { |node| node.position == u }
       
       u = Node.new(u)
-      
-      sum = v.distance + v.weights[v.neighbours.find_index(u.position)]
+      #dist(v) + weight(u, v) < dist(u) ?
+      sum = current.distance + 1
       u.distance = sum < u.distance ? sum : u.distance
       
       queue << u
       
     end
-    visited << v
+    visited << current
     
   end
   

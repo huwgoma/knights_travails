@@ -7,15 +7,13 @@ class Knight
 
   def knight_moves(start, target)
     @position = Cell.find(start.first, start.last)
-    @target = Cell.find(target.first, target.last)
+    target = Cell.find(target.first, target.last)
 
     graph = Graph.new(position)
-    path = dijkstra(graph.nodes, @target)
+    path = dijkstra(graph.nodes, target)
     path = path.map do |node|
       [node.position.x, node.position.y]
     end
-    binding.pry
-    
+    "You made it in #{path.size} moves! Here's your path: #{path}"
   end
-
 end
