@@ -1,5 +1,5 @@
 def dijkstra(graph, target)
-  source = graph.first
+  source = graph.nodes.first
   queue = []
   visited = []
 
@@ -8,16 +8,15 @@ def dijkstra(graph, target)
   until queue.empty?
     current = queue.shift
     return trace_path(visited, current) if current.position == target
-    current.neighbours.each do |u| 
-      next if visited.any? { |node| node.position == u }
+    current.neighbours.each do |neighbour| 
+      next if visited.any? { |node| node.position == neighbour }
       
-      u = Node.new(u)
-      #dist(v) + weight(u, v) < dist(u) ?
+      neighbour = graph.add_node(neighbour).last
+      #dist(current) + weight(current, neighbour) < dist(neighbour) ?
       sum = current.distance + 1
-      u.distance = sum < u.distance ? sum : u.distance
+      neighbour.distance = sum < neighbour.distance ? sum : neighbour.distance
       
-      queue << u
-      
+      queue << neighbour      
     end
     visited << current
     

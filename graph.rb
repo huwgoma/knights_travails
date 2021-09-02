@@ -1,25 +1,34 @@
+# Logic for all possible moves of a chess piece;
+# given its current Cell position and its Type
+module LegalMoveable
+  X = {
+    "Knight" => [2, 2, -2, -2, 1, -1, 1, -1]
+  }
+
+  Y = {
+    "Knight" => [1, -1, 1, -1, 2, 2, -2, -2]
+  }
+
+  def legal_moves(cell, piece = Knight)
+    x = X[piece.to_s]
+    y = Y[piece.to_s]
+    legal_moves = []
+    x.size.times { |i| legal_moves << Cell.find(cell.x + x[i], cell.y + y[i]) }
+    legal_moves.compact
+  end  
+end
+
 # Graph Class - Store all possible moves of the Knight as nodes in a graph
 class Graph
-  attr_accessor :nodes
+  attr_accessor :nodes, :piece
 
-  def initialize(initial_position)
-    @nodes = [Node.new(initial_position, 0)]
+  def initialize(start, piece)
+    @nodes = [Node.new(start, piece, 0)]
+    @piece = piece
   end
 
   def add_node(position)
-    @nodes << Node.new(position)
-  end
-end
-
-# Logic for all possible moves of the Knight, given its current Cell position
-module KnightMoveable
-  X = [2, 2, -2, -2, 1, -1, 1, -1]
-  Y = [1, -1, 1, -1, 2, 2, -2, -2]
-
-  def legal_moves(cell)
-    legal_moves = []
-    X.size.times { |i| legal_moves << Cell.find(cell.x + X[i], cell.y + Y[i]) }
-    legal_moves.compact
+    @nodes << Node.new(position, piece)
   end
 end
 
@@ -28,14 +37,14 @@ end
 # neighbours (Cells that the Knight may reach in one move), and its
 # distance from the Knight's initial position (for use in Dijkstra's Algorithm)
 class Node
-  include KnightMoveable
+  include LegalMoveable
 
-  attr_reader :position, :neighbours, :weights
+  attr_reader :position, :neighbours
   attr_accessor :distance
 
-  def initialize(position, distance = Float::INFINITY)
+  def initialize(position, piece, distance = Float::INFINITY)
     @position = position
-    @neighbours = legal_moves(position)
+    @neighbours = legal_moves(position, piece)
     @distance = distance
   end
 end
