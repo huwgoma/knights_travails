@@ -9,7 +9,7 @@ module LegalMoveable
     "Knight" => [1, -1, 1, -1, 2, 2, -2, -2]
   }
 
-  def legal_moves(cell, piece = Knight)
+  def legal_moves(cell, piece)
     x = X[piece.to_s]
     y = Y[piece.to_s]
     legal_moves = []
